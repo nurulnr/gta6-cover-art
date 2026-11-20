@@ -3,20 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Neon Cover Lab — GTA 6-style cover maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
+<header class="top">
+  <div class="brand">
+    <h1>Neon Cover Lab</h1>
+    <p>Turn any photo into GTA-style cover art. Photos never leave your machine.</p>
+  </div>
+  <p class="top-note">Multi-panel poster &middot; sunset &amp; neon grades &middot; three post sizes</p>
+</header>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="controls" aria-label="Cover controls">
+    <section class="group">
+      <h2>Photos</h2>
+      <div class="library" id="library"></div>
+      <label class="upload">Upload your photos
+        <input id="upload" type="file" accept="image/*" multiple>
+      </label>
+      <p class="hint">Click a panel in the preview, then a photo, to fill that panel.</p>
+    </section>
+    <section class="group">
+      <h2>Layout</h2>
+      <div class="choices" id="layout-pick"></div>
+    </section>
+    <section class="group">
+      <h2>Colour grade</h2>
+      <div class="choices" id="grade-pick"></div>
+    </section>
+    <section class="group">
+      <h2>Caption</h2>
+      <label>Title
+        <input id="title" type="text" maxlength="24" value="VICE CITY">
+      </label>
+      <label>Subtitle
+        <input id="subtitle" type="text" maxlength="32" value="Sunset Heist">
+      </label>
+    </section>
+    <section class="group">
+      <h2 id="panel-label">Panel 1 of 4</h2>
+      <label>Photo
+        <select id="panel-photo"></select>
+      </label>
+      <label>Zoom
+        <input id="panel-zoom" type="range" min="1" max="3" step="0.05" value="1">
+      </label>
+      <label>Pan left&ndash;right
+        <input id="panel-dx" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+      <label>Pan up&ndash;down
+        <input id="panel-dy" type="range" min="-0.5" max="0.5" step="0.01" value="0">
+      </label>
+    </section>
+    <section class="group">
+      <h2>Post size &amp; export</h2>
+      <div class="choices" id="size-pick"></div>
+      <div class="export">
+        <button id="export-one" type="button">Export this size</button>
+        <button id="export-all" type="button" class="primary">Export all three</button>
+      </div>
+      <p id="status" role="status"></p>
+    </section>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+  <section class="stage">
+    <canvas id="preview" width="640" height="640" aria-label="Live cover preview"></canvas>
+    <p class="stage-hint">Click a panel to crop and position it.</p>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>
